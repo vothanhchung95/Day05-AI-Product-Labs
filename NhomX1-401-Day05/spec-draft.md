@@ -1,8 +1,16 @@
 # SPEC — AI Product Hackathon
 
-**Nhóm:** X1
-**Track:** ☐ VinFast · ☐ Vinmec · ☐ VinUni-VinSchool · ☐ XanhSM · ☐ Open
-**Problem statement (1 câu):** *Ai gặp vấn đề gì, hiện giải thế nào, AI giúp được gì*
+**Nhóm:** X1  
+**Track:** ☐ VinFast · ☑ Vinmec · ☐ VinUni-VinSchool · ☐ XanhSM · ☐ Open  
+**Problem statement (1 câu):** Bệnh nhân Vinmec thường hoang mang khi đọc kết quả xét nghiệm dù có sẵn dữ liệu, AI giúp giải thích cá nhân hóa dựa trên hồ sơ bệnh án để giảm tải cho bác sĩ và tăng trải nghiệm an tâm cho người bệnh.
+
+**Phân công nhóm:**
+- Hoàng Thị Thanh Tuyền - 2A202600074: AI Product Canvas
+- Lê Minh Khang - 2A202600102: User Stories 4 paths
+- Đỗ Thế Anh - 2A202600040: Eval metrics + threshold 
+- Nguyễn Hồ Bảo Thiên - 2A202600163: Top 3 failure modes
+- Dương Khoa Điềm - 2A202600366: ROI 3 kịch bản
+- Võ Thanh Chung - 2A202600335: Mini AI spec
 
 ---
 
@@ -257,7 +265,26 @@ Dự án **Vinmec Lumina** đứng trước cơ hội lớn để dẫn đầu t
  Sự thành công không chỉ phụ thuộc vào công nghệ LLM mạnh mẽ, mà còn nằm ở sự tinh tế trong việc giữ vững ranh giới đặc tả: **AI hiểu kết quả, bác sĩ hiểu bệnh nhân.**
 ---
 
-## 6. Mini AI spec (1 trang)
+## 6. Mini AI spec
 
-*Tóm tắt tự do — viết bằng ngôn ngữ tự nhiên, không format bắt buộc.*
-*Gom lại: product giải gì, cho ai, AI làm gì (auto/aug), quality thế nào (precision/recall), risk chính, data flywheel ra sao.*
+**Dự án:** Vinmec Lumina (Phân hệ AI Lab Result Explainer)
+
+**1. Mục tiêu cốt lõi:**
+Chuyển đổi các con số vô tri trong phiếu xét nghiệm thành kiến thức có thể hành động (Actionable Insights) cho bệnh nhân. Thay vì giải thích chung chung như Google, AI sử dụng chính hồ sơ sức khỏe (tuổi, tiền sử) để đưa ra lời giải thích "may đo" riêng cho từng người.
+
+**2. Cơ chế AI:**
+* **Input:** Structured Data (JSON) từ hệ thống LIS/HIS (tên chỉ số, giá trị, đơn vị, range) + User Profile (tuổi, giới tính, tiền sử bệnh).
+* **Processing (Augmentation):** Sử dụng LLM (Claude 3.5/GPT-4o) kết hợp với **RAG (Retrieval-Augmented Generation)** trên bộ Knowledge Base y khoa của Vinmec. AI không tự ý suy luận mà "ánh xạ" kết quả của user vào các quy tắc y khoa chuẩn hóa.
+* **Output:** Một báo cáo ngôn ngữ tự nhiên gồm: (1) Trạng thái tổng quát, (2) Giải thích chi tiết các chỉ số bất thường theo mức độ ưu tiên, (3) Xu hướng so với quá khứ, (4) Khuyến nghị hành động tiếp theo.
+
+**3. Đảm bảo chất lượng (Quality & Safety):**
+* **Guardrails:** Hệ thống lọc từ khóa (Keyword filter) để chặn các kết luận khẳng định bệnh hoặc kê đơn thuốc trái phép. 
+* **Severity Logic:** Một lớp code truyền thống (Deterministic) nằm trên LLM để quét các chỉ số nguy cấp (Red flag). Nếu phát hiện, hệ thống sẽ ưu tiên hiển thị cảnh báo đỏ thay vì đợi LLM giải thích.
+* **Flywheel:** Dữ liệu phản hồi từ nút "Hỏi bác sĩ" và log chỉnh sửa từ chuyên gia y khoa sẽ được quay vòng để Fine-tune prompt định kỳ mỗi 2 tuần.
+
+**4. Rủi ro chính:**
+Mối nguy lớn nhất là sự chủ quan của bệnh nhân nếu AI đánh giá quá nhẹ nhàng. Chúng tôi xử lý bằng cách giữ tone giọng trung lập, luôn đi kèm Disclaimer và ưu tiên tính "biết thì thưa thốt, không biết thì gợi ý gặp bác sĩ".
+
+---
+*Sự thành công của Vinmec Lumina nằm ở việc giữ vững ranh giới: AI hiểu dữ liệu - Bác sĩ hiểu bệnh nhân.*
+
