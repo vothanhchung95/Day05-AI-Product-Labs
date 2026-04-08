@@ -280,7 +280,6 @@ Chuyển đổi các con số vô tri trong phiếu xét nghiệm thành kiến 
 **3. Đảm bảo chất lượng (Quality & Safety):**
 * **Guardrails:** Hệ thống lọc từ khóa (Keyword filter) để chặn các kết luận khẳng định bệnh hoặc kê đơn thuốc trái phép. 
 * **Severity Logic:** Một lớp code truyền thống (Deterministic) nằm trên LLM để quét các chỉ số nguy cấp (Red flag). Nếu phát hiện, hệ thống sẽ ưu tiên hiển thị cảnh báo đỏ thay vì đợi LLM giải thích.
-* **Flywheel:** Dữ liệu phản hồi từ nút "Hỏi bác sĩ" và log chỉnh sửa từ chuyên gia y khoa sẽ được quay vòng để Fine-tune prompt định kỳ mỗi 2 tuần.
 
 **4. Rủi ro chính:**
 Mối nguy lớn nhất là sự chủ quan của bệnh nhân nếu AI đánh giá quá nhẹ nhàng. Chúng tôi xử lý bằng cách giữ tone giọng trung lập, luôn đi kèm Disclaimer và ưu tiên tính "biết thì thưa thốt, không biết thì gợi ý gặp bác sĩ".
